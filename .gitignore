@@ -2,3 +2,6 @@ Task_1_Iris_Flower_Classification/.venv/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+# Trained Model
+*.pkl
+Task_1_Iris_Flower_Classification/iris_best_model.pkl
