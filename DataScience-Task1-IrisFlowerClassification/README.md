@@ -103,10 +103,10 @@ The best-performing model was selected based on the highest testing accuracy and
 ## 📁 Project Structure
 
 ```
-Task_1_Iris_Flower_Classification/
+DataScience-Task-1-IrisFlowerClassification/
 │
-├── Iris_Flower_Classification.ipynb
-├── iris_classification.py
+├── DataScience-Task1-IrisFlowerClassification.ipynb
+├── DataScience-Task1-IrisFlowerClassification.py
 ├── requirements.txt
 ├── README.md
 └── outputs/
@@ -138,3 +138,5 @@ pip install -r requirements.txt
 ## 👨‍💻 Author
 
 Shaikh Danish
+
+**Oasis Infobyte Data Science Internship**
