@@ -52,15 +52,15 @@ A Data Analysis and Machine Learning project focused on analyzing unemployment t
 ```
 OIBSIP/
 │
-├── Task_1_Iris_Flower_Classification/
-│   ├── Iris_Flower_Classification.ipynb
-│   ├── iris_classification.py
+├── DataScience-Task1-IrisFlowerClassification/
+│   ├── DataScience-Task1-IrisFlowerClassification.ipynb
+│   ├── DataScience-Task1-IrisFlowerClassification.py
 │   ├── iris_best_model.pkl
 │   └── outputs/
 │
-├── Task_2_Unemployment_Analysis/
-│   ├── Unemployment_Analysis.ipynb
-│   ├── unemployment_analysis.py
+├── DataScience-Task2-UnemploymentAnalysis/
+│   ├── DataScience-Task2-UnemploymentAnalysis.ipynb
+│   ├── DataScience-Task2-UnemploymentAnalysis.py
 │   └── outputs/
 │
 └── README.md
