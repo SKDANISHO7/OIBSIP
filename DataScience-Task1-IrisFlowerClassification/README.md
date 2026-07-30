@@ -137,6 +137,6 @@ pip install -r requirements.txt
 
 ## 👨‍💻 Author
 
-Shaikh Danish
+**Shaikh Danish Shaikh Umar Farooq**
 
 **Oasis Infobyte Data Science Internship**
