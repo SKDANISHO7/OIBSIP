@@ -1,29 +1,73 @@
 # OIBSIP - Oasis Infobyte Internship
 
-This repository contains my Oasis Infobyte Internship Machine Learning projects.
+This repository contains my **Machine Learning projects completed during the Oasis Infobyte Internship Program**.
 
-## Projects
+## 📂 Projects
 
-### Task 1 - Iris Flower Classification
+### ✅ Task 1 - Iris Flower Classification
 
-A Machine Learning project that classifies Iris flowers into three species using:
+A Machine Learning classification project that predicts the species of Iris flowers based on flower measurements.
 
-- Logistic Regression
-- K-Nearest Neighbors (KNN)
-- Decision Tree
+**Machine Learning Algorithms Used:**
 
-### Technologies Used
+* Logistic Regression
+* K-Nearest Neighbors (KNN)
+* Decision Tree
+* Random Forest
 
-- Python
-- Pandas
-- Matplotlib
-- Seaborn
-- Scikit-learn
+**Technologies Used:**
 
-## Repository Structure
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+
+---
+
+### ✅ Task 2 - Unemployment Analysis
+
+A Data Analysis and Machine Learning project focused on analyzing unemployment trends and extracting meaningful insights from the dataset.
+
+**Analysis Performed:**
+
+* Data Cleaning and Preprocessing
+* Exploratory Data Analysis (EDA)
+* Data Visualization
+* Trend Analysis
+
+**Technologies Used:**
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+
+---
+
+## 📁 Repository Structure
 
 ```
-Task_1_Iris_Flower_Classification/
+OIBSIP/
+│
+├── Task_1_Iris_Flower_Classification/
+│   ├── Iris_Flower_Classification.ipynb
+│   ├── iris_classification.py
+│   ├── iris_best_model.pkl
+│   └── outputs/
+│
+├── Task_2_Unemployment_Analysis/
+│   ├── Unemployment_Analysis.ipynb
+│   ├── unemployment_analysis.py
+│   └── outputs/
+│
+└── README.md
 ```
 
-Author: **Shaikh Danish**
+---
+
+## 👨‍💻 Author
+
+**Shaikh Danish Shaikh Umar Farooq**

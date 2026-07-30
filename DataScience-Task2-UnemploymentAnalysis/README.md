@@ -171,6 +171,6 @@ The project highlights how data visualization can transform raw datasets into me
 
 ## 👨‍💻 Author
 
-**Shaikh Danish**
+**Shaikh Danish Shaikh Umar Farooq**
 
 **Oasis Infobyte – Data Science Internship**
