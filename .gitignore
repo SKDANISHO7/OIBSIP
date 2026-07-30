@@ -1,7 +1,14 @@
-Task_1_Iris_Flower_Classification/.venv/
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Jupyter
 .ipynb_checkpoints/
-# Trained Model
+
+# Trained Models
 *.pkl
-Task_1_Iris_Flower_Classification/iris_best_model.pkl
