@@ -4,39 +4,36 @@
 
 ### 📖 Project Overview
 
-The Car Price Prediction project is a Machine Learning regression project that predicts the selling price of a used vehicle based on its features such as manufacturing year, present price, fuel type, transmission, seller type, kilometers driven, and ownership history.
-
-The project focuses on building multiple regression models, comparing their performance, and selecting the best-performing model for accurate price prediction.
+This project builds a professional machine learning pipeline to predict the selling price of used cars using regression models. The workflow includes data cleaning, categorical value standardization, feature engineering, exploratory data analysis, model training, evaluation, and model saving.
 
 ---
 
 ## 🎯 Objective
 
-The objective of this project is to build and compare multiple Machine Learning regression models to accurately predict the selling price of used vehicles.
+The main objective is to predict the selling price of a car accurately by comparing multiple regression algorithms and selecting the best-performing model.
 
 ---
 
 ## 📂 Dataset
 
-The dataset contains information about used vehicles and their selling prices.
+The project uses the publicly available car price dataset stored in the dataset folder.
 
-- Total Samples: 301
-- Features: 8 (after preprocessing)
+### Key Features Used
 
-### Features
-
-- Present Price
-- Kms Driven
-- Fuel Type
-- Seller Type
+- Car_Name
+- Year
+- Present_Price
+- Kms_Driven
+- Fuel_Type
+- Seller_Type
 - Transmission
 - Owner
-- Car Age
-- Selling Price (Target)
+- Selling_Price
 
-### Target
+### Feature Engineering Added
 
-- Selling Price
+- Brand extracted from Car_Name
+- Car_Age derived from Year
 
 ---
 
@@ -53,141 +50,76 @@ The dataset contains information about used vehicles and their selling prices.
 
 ---
 
-## 📊 Exploratory Data Analysis
+## 📊 EDA and Preprocessing
 
-The following analyses were performed:
+The notebook and script perform the following:
 
-- Dataset Overview
-- Data Quality Assessment
-- Missing Value Check
-- Duplicate Value Check
-- Statistical Summary
-- Selling Price Distribution
-- Correlation Heatmap
-- Scatter Plot Analysis
-- Categorical Feature Analysis
-- Outlier Detection using Boxplots
-
----
-
-## ⚙️ Feature Engineering
-
-The following preprocessing steps were performed:
-
-- Created **Car_Age** feature from manufacturing year.
-- Removed unnecessary columns.
-- One-Hot Encoding of categorical variables.
-- Split dataset into training and testing sets.
+- Missing value and duplicate handling
+- Standardization of categorical values
+- Brand extraction from car names
+- Selling price distribution analysis
+- Fuel-type box plot analysis
+- Price vs. year scatter plot
+- Correlation heatmap
+- One-hot encoding of categorical variables
 
 ---
 
 ## 🤖 Machine Learning Models
 
-The following regression models were trained:
+The following regression models are trained and compared:
 
 - Linear Regression
 - Decision Tree Regressor
 - Random Forest Regressor
+- Gradient Boosting Regressor
 
 ---
 
-## 📈 Model Evaluation
+## 📈 Evaluation Metrics
 
-The models were evaluated using:
+The models are evaluated using:
 
 - Mean Absolute Error (MAE)
 - Root Mean Squared Error (RMSE)
 - R² Score
 
----
-
-## 🏆 Best Model
-
-The best-performing model was selected based on the highest **R² Score** and lowest prediction error.
-
-The trained model was saved as:
-
-```
-best_car_price_model.pkl
-```
+A feature importance chart is also generated for the best-performing model.
 
 ---
 
-## 📁 Project Structure
+## 🏆 Output Files
 
-```
-DataScience-Task3-CarPricePrediction/
-│
-├── dataset/
-│   └── car_data.csv
-│
-├── outputs/
-│   ├── actual_vs_predicted.png
-│   ├── correlation_heatmap.png
-│   ├── fuel_type_distribution.png
-│   ├── kms_driven_boxplot.png
-│   ├── kms_driven_vs_selling_price.png
-│   ├── model_comparison.png
-│   ├── owner_distribution.png
-│   ├── present_price_boxplot.png
-│   ├── present_price_vs_selling_price.png
-│   ├── seller_type_distribution.png
-│   ├── selling_price_boxplot.png
-│   ├── selling_price_distribution.png
-│   ├── transmission_distribution.png
-│   ├── year_boxplot.png
-│   └── year_vs_selling_price.png
-│
-├── best_car_price_model.pkl
-├── DataScience-Task3-CarPricePrediction.ipynb
-├── DataScience-Task3-CarPricePrediction.py
-├── requirements.txt
-└── README.md
-```
+The project generates plots and a trained model in the outputs folder, including:
+
+- selling_price_distribution.png
+- price_vs_fuel_type.png
+- price_vs_year.png
+- correlation_heatmap.png
+- feature_importance.png
+- actual_vs_predicted.png
+- best_car_price_model.pkl
 
 ---
 
 ## ▶️ How to Run
 
-1. Clone the repository.
-
-2. Install the required libraries.
+1. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the Jupyter Notebook or Python script.
+2. Open the Jupyter Notebook or run the Python script:
 
----
-
-## 📊 Project Outputs
-
-The project generates:
-
-- Distribution Plots
-- Correlation Heatmap
-- Scatter Plots
-- Categorical Distribution Charts
-- Box Plots
-- Model Comparison Chart
-- Actual vs Predicted Plot
-- Trained Machine Learning Model
-
----
-
-## 🚀 Future Improvements
-
-- Hyperparameter Tuning
-- Feature Selection
-- Cross Validation
-- Model Deployment using Flask or Streamlit
-- Real-Time Car Price Prediction Web Application
+```bash
+python DataScience-Task3-CarPricePrediction.py
+```
 
 ---
 
 ## 👨‍💻 Author
 
-**Shaikh Danish Shaikh Umar Farooq.**
+Shaikh Danish Shaikh Umar Farooq
 
-**Oasis Infobyte Data Science Internship**
+Oasis Infobyte Data Science Internship

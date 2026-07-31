@@ -3,114 +3,174 @@
 # Oasis Infobyte Data Science Internship - Task 3
 # ==============================================================================
 
-# Step 1 : Import Required Libraries
-import pandas as pd
-import numpy as np
 import os
+import warnings
+import joblib
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import joblib
 
-# Step 2 : Create Outputs Folder
-if not os.path.exists("outputs"):
-    os.makedirs("outputs")
+warnings.filterwarnings("ignore")
 
-# Step 3 : Load Dataset
-df = pd.read_excel("Car details v3.xlsx")   # replace with your chosen file
+OUTPUT_DIR = "outputs"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Step 4 : Dataset Overview
-print(df.head())
-print(df.info())
-print(df.describe())
+# ------------------------------------------------------------------------------
+# 1. Load the dataset
+# ------------------------------------------------------------------------------
+df = pd.read_csv("dataset/car_data.csv")
 
-# Step 5 : Data Preprocessing
-df.drop_duplicates(inplace=True)
-df.dropna(inplace=True)
+print("Dataset loaded successfully.")
+print("Shape:", df.shape)
+print("\nPreview:\n", df.head().to_string(index=False))
+print("\nColumns:", df.columns.tolist())
 
-# Normalize categorical values
-df['fuel'] = df['fuel'].str.lower().str.strip()
-df['transmission'] = df['transmission'].str.lower().str.strip()
+# ------------------------------------------------------------------------------
+# 2. Data cleaning and standardization
+# ------------------------------------------------------------------------------
+df = df.drop_duplicates().dropna().copy()
 
-# Step 6 : Exploratory Data Analysis (EDA)
-plt.figure(figsize=(8,5))
-sns.histplot(df['selling_price'], bins=30, kde=True)
-plt.title("Distribution of Selling Prices")
-plt.savefig("outputs/price_distribution.png")
+for col in ["Car_Name", "Fuel_Type", "Seller_Type", "Transmission"]:
+    df[col] = df[col].astype(str).str.strip()
+
+# Clean categorical values
+for col in ["Fuel_Type", "Seller_Type", "Transmission"]:
+    df[col] = df[col].str.title()
+
+# Create a new brand feature from the car name
+if "Car_Name" in df.columns:
+    df["Brand"] = df["Car_Name"].str.split().str[0].str.title()
+
+# ------------------------------------------------------------------------------
+# 3. Exploratory data analysis
+# ------------------------------------------------------------------------------
+plt.figure(figsize=(8, 5), dpi=150)
+sns.histplot(df["Selling_Price"], bins=20, kde=True, color="steelblue")
+plt.title("Distribution of Selling Price", fontsize=13, fontweight="bold")
+plt.xlabel("Selling Price")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "selling_price_distribution.png"), dpi=300, bbox_inches="tight")
 plt.show()
 
-sns.boxplot(x='fuel', y='selling_price', data=df)
-plt.title("Price vs Fuel Type")
-plt.savefig("outputs/price_vs_fuel.png")
+plt.figure(figsize=(8, 5), dpi=150)
+sns.boxplot(data=df, x="Fuel_Type", y="Selling_Price", palette="Set2")
+plt.title("Selling Price vs Fuel Type", fontsize=13, fontweight="bold")
+plt.xlabel("Fuel Type")
+plt.ylabel("Selling Price")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "price_vs_fuel_type.png"), dpi=300, bbox_inches="tight")
 plt.show()
 
-sns.scatterplot(x='year', y='selling_price', data=df)
-plt.title("Price vs Year")
-plt.savefig("outputs/price_vs_year.png")
+plt.figure(figsize=(8, 5), dpi=150)
+sns.scatterplot(data=df, x="Year", y="Selling_Price", alpha=0.7)
+plt.title("Selling Price vs Car Age", fontsize=13, fontweight="bold")
+plt.xlabel("Year")
+plt.ylabel("Selling Price")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "price_vs_year.png"), dpi=300, bbox_inches="tight")
 plt.show()
 
-# Step 7 : Feature Engineering
-from datetime import datetime
-df['car_age'] = datetime.now().year - df['year']
-df['brand'] = df['car_name'].str.split().str[0]
-
-# Encode categorical variables
-df = pd.get_dummies(df, columns=['fuel','transmission','brand'], drop_first=True)
-
-# Correlation heatmap
-plt.figure(figsize=(12,8))
-sns.heatmap(df.corr(), cmap='coolwarm')
-plt.title("Feature Correlation Heatmap")
-plt.savefig("outputs/correlation_heatmap.png")
+plt.figure(figsize=(11, 8), dpi=150)
+num_df = df.select_dtypes(include=[np.number])
+sns.heatmap(num_df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Feature Correlation Heatmap", fontsize=13, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "correlation_heatmap.png"), dpi=300, bbox_inches="tight")
 plt.show()
 
-# Step 8 : Train-Test Split
-X = df.drop(['selling_price','car_name'], axis=1)
-y = df['selling_price']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# ------------------------------------------------------------------------------
+# 4. Feature engineering
+# ------------------------------------------------------------------------------
+car_df = df.copy()
+car_df["Car_Age"] = 2025 - car_df["Year"]
+car_df = car_df.drop(columns=["Car_Name", "Year"], errors="ignore")
 
-# Step 9 : Linear Regression
-lr = LinearRegression()
-lr.fit(X_train, y_train)
-y_pred_lr = lr.predict(X_test)
+car_df = pd.get_dummies(
+    car_df,
+    columns=["Fuel_Type", "Seller_Type", "Transmission", "Brand"],
+    drop_first=True,
+    dtype=int
+)
 
-# Step 10 : Decision Tree Regressor
-dt = DecisionTreeRegressor(random_state=42)
-dt.fit(X_train, y_train)
-y_pred_dt = dt.predict(X_test)
+X = car_df.drop(columns=["Selling_Price"])
+y = car_df["Selling_Price"]
 
-# Step 11 : Random Forest Regressor
-rf = RandomForestRegressor(random_state=42)
-rf.fit(X_train, y_train)
-y_pred_rf = rf.predict(X_test)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-# Step 12 : Model Comparison
-def evaluate_model(name, y_true, y_pred):
-    mae = mean_absolute_error(y_true, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-    r2 = r2_score(y_true, y_pred)
-    print(f"{name} -> MAE: {mae:.2f}, RMSE: {rmse:.2f}, R²: {r2:.2f}")
-    return mae, rmse, r2
+print("\nTraining shape:", X_train.shape)
+print("Testing shape:", X_test.shape)
 
-results = {}
-results['Linear Regression'] = evaluate_model("Linear Regression", y_test, y_pred_lr)
-results['Decision Tree'] = evaluate_model("Decision Tree", y_test, y_pred_dt)
-results['Random Forest'] = evaluate_model("Random Forest", y_test, y_pred_rf)
+# ------------------------------------------------------------------------------
+# 5. Train regression models
+# ------------------------------------------------------------------------------
+def evaluate_model(name, model, X_train, X_test, y_train, y_test):
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    mae = mean_absolute_error(y_test, preds)
+    rmse = np.sqrt(mean_squared_error(y_test, preds))
+    r2 = r2_score(y_test, preds)
+    print(f"{name}: MAE={mae:.4f}, RMSE={rmse:.4f}, R2={r2:.4f}")
+    return {"Model": name, "MAE": mae, "RMSE": rmse, "R2": r2, "Model_Object": model}
 
-# Step 13 : Actual vs Predicted Plot (Best Model)
-plt.figure(figsize=(8,5))
-plt.scatter(y_test, y_pred_rf, alpha=0.7)
-plt.xlabel("Actual Prices")
-plt.ylabel("Predicted Prices")
-plt.title("Actual vs Predicted (Random Forest)")
-plt.savefig("outputs/actual_vs_predicted.png")
+models = {
+    "Linear Regression": LinearRegression(),
+    "Decision Tree": DecisionTreeRegressor(random_state=42),
+    "Random Forest": RandomForestRegressor(n_estimators=200, random_state=42),
+    "Gradient Boosting": GradientBoostingRegressor(random_state=42),
+}
+
+results = []
+for model_name, model in models.items():
+    results.append(evaluate_model(model_name, model, X_train, X_test, y_train, y_test))
+
+results_df = pd.DataFrame(results).sort_values(by="R2", ascending=False).reset_index(drop=True)
+print("\nModel comparison:\n", results_df[["Model", "MAE", "RMSE", "R2"]])
+
+best_model_row = results_df.iloc[0]
+best_model = best_model_row["Model_Object"]
+
+# ------------------------------------------------------------------------------
+# 6. Feature importance plot for the best model
+# ------------------------------------------------------------------------------
+if hasattr(best_model, "feature_importances_"):
+    importances = pd.Series(best_model.feature_importances_, index=X.columns).sort_values(ascending=False)[:15]
+    plt.figure(figsize=(10, 6), dpi=150)
+    importances.plot(kind="bar", color="seagreen")
+    plt.title(f"Top Feature Importances - {best_model_row['Model']}", fontsize=13, fontweight="bold")
+    plt.ylabel("Importance")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTPUT_DIR, "feature_importance.png"), dpi=300, bbox_inches="tight")
+    plt.show()
+else:
+    print("Feature importance is not available for the selected model.")
+
+# ------------------------------------------------------------------------------
+# 7. Actual vs predicted plot
+# ------------------------------------------------------------------------------
+best_predictions = best_model.predict(X_test)
+plt.figure(figsize=(8, 5), dpi=150)
+plt.scatter(y_test, best_predictions, alpha=0.7)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color="red", linestyle="--")
+plt.title(f"Actual vs Predicted Prices - {best_model_row['Model']}", fontsize=13, fontweight="bold")
+plt.xlabel("Actual Selling Price")
+plt.ylabel("Predicted Selling Price")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "actual_vs_predicted.png"), dpi=300, bbox_inches="tight")
 plt.show()
 
-# Step 14 : Save Best Model
-joblib.dump(rf, "outputs/best_model.pkl")
-print("Best model saved as outputs/best_model.pkl")
+# ------------------------------------------------------------------------------
+# 8. Save model
+# ------------------------------------------------------------------------------
+joblib.dump(best_model, os.path.join(OUTPUT_DIR, "best_car_price_model.pkl"))
+print("\nBest model saved to:", os.path.join(OUTPUT_DIR, "best_car_price_model.pkl"))
