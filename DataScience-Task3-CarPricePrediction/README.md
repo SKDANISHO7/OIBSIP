@@ -2,124 +2,208 @@
 
 ## 📌 Oasis Infobyte Data Science Internship - Task 3
 
-### 📖 Project Overview
+## 📖 Project Overview
 
-This project builds a professional machine learning pipeline to predict the selling price of used cars using regression models. The workflow includes data cleaning, categorical value standardization, feature engineering, exploratory data analysis, model training, evaluation, and model saving.
+This project focuses on building a complete Machine Learning regression pipeline to predict the selling price of used cars based on various features such as car brand, age, mileage, fuel type, seller type, transmission, and ownership details.
 
----
-
-## 🎯 Objective
-
-The main objective is to predict the selling price of a car accurately by comparing multiple regression algorithms and selecting the best-performing model.
+The project includes complete data preprocessing, exploratory data analysis, feature engineering, model training, performance evaluation, and saving the best-performing regression model.
 
 ---
 
-## 📂 Dataset
+# 🎯 Objective
 
-The project uses the publicly available car price dataset stored in the dataset folder.
-
-### Key Features Used
-
-- Car_Name
-- Year
-- Present_Price
-- Kms_Driven
-- Fuel_Type
-- Seller_Type
-- Transmission
-- Owner
-- Selling_Price
-
-### Feature Engineering Added
-
-- Brand extracted from Car_Name
-- Car_Age derived from Year
+The objective of this project is to develop a reliable machine learning model that can accurately predict used car prices and identify the best regression algorithm based on evaluation metrics.
 
 ---
 
-## 🛠 Technologies Used
+# 📂 Project Structure
 
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- Joblib
-- Jupyter Notebook
-
----
-
-## 📊 EDA and Preprocessing
-
-The notebook and script perform the following:
-
-- Missing value and duplicate handling
-- Standardization of categorical values
-- Brand extraction from car names
-- Selling price distribution analysis
-- Fuel-type box plot analysis
-- Price vs. year scatter plot
-- Correlation heatmap
-- One-hot encoding of categorical variables
+```
+DataScience-Task3-CarPricePrediction/
+│
+├── dataset/
+│   └── car_data.csv
+│
+├── outputs/
+│   ├── selling_price_distribution.png
+│   ├── price_vs_fuel_type.png
+│   ├── price_vs_year.png
+│   ├── correlation_heatmap.png
+│   ├── feature_importance.png
+│   └── actual_vs_predicted.png
+│
+├── DataScience-Task3-CarPricePrediction.ipynb
+├── DataScience-Task3-CarPricePrediction.py
+├── best_car_price_model.pkl
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## 🤖 Machine Learning Models
+# 📊 Dataset Information
 
-The following regression models are trained and compared:
+The dataset contains information about used cars and their selling prices.
 
-- Linear Regression
-- Decision Tree Regressor
-- Random Forest Regressor
-- Gradient Boosting Regressor
+## Features Used
 
----
-
-## 📈 Evaluation Metrics
-
-The models are evaluated using:
-
-- Mean Absolute Error (MAE)
-- Root Mean Squared Error (RMSE)
-- R² Score
-
-A feature importance chart is also generated for the best-performing model.
+* Car_Name
+* Year
+* Present_Price
+* Kms_Driven
+* Fuel_Type
+* Seller_Type
+* Transmission
+* Owner
+* Selling_Price
 
 ---
 
-## 🏆 Output Files
+# ⚙️ Feature Engineering
 
-The project generates plots and a trained model in the outputs folder, including:
+Additional features were created to improve model performance:
 
-- selling_price_distribution.png
-- price_vs_fuel_type.png
-- price_vs_year.png
-- correlation_heatmap.png
-- feature_importance.png
-- actual_vs_predicted.png
-- best_car_price_model.pkl
+* **Brand Extraction**
+
+  * Extracted car brand information from car names.
+
+* **Car Age Calculation**
+
+  * Calculated vehicle age using manufacturing year.
 
 ---
 
-## ▶️ How to Run
+# 🛠 Technologies Used
 
-1. Install dependencies:
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* Joblib
+* Jupyter Notebook
+
+---
+
+# 🔍 Data Preprocessing
+
+The following preprocessing steps were performed:
+
+* Dataset loading and inspection
+* Handling missing values
+* Removing duplicate records
+* Standardizing categorical values
+* Feature extraction
+* Encoding categorical variables using One-Hot Encoding
+* Splitting dataset into training and testing sets
+
+---
+
+# 📈 Exploratory Data Analysis
+
+The project includes:
+
+* Selling price distribution analysis
+* Price comparison based on fuel type
+* Car price trend according to manufacturing year
+* Correlation heatmap
+* Feature importance visualization
+* Actual vs predicted price comparison
+
+All visualizations are automatically saved inside the `outputs/` folder.
+
+---
+
+# 🤖 Machine Learning Models
+
+Multiple regression algorithms were implemented and compared:
+
+1. Linear Regression
+2. Decision Tree Regressor
+3. Random Forest Regressor
+4. Gradient Boosting Regressor
+
+---
+
+# 📏 Model Evaluation
+
+Models were evaluated using:
+
+* **Mean Absolute Error (MAE)**
+* **Root Mean Squared Error (RMSE)**
+* **R² Score**
+
+The best-performing model was selected and saved as:
+
+```
+best_car_price_model.pkl
+```
+
+---
+
+# 📁 Output Files Generated
+
+The project generates the following output files:
+
+```
+outputs/
+│
+├── selling_price_distribution.png
+├── price_vs_fuel_type.png
+├── price_vs_year.png
+├── correlation_heatmap.png
+├── feature_importance.png
+└── actual_vs_predicted.png
+```
+
+---
+
+# ▶️ How to Run the Project
+
+### 1. Clone Repository
+
+```bash
+git clone <repository-link>
+```
+
+### 2. Install Required Libraries
 
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Open the Jupyter Notebook or run the Python script:
+### 3. Run Python Script
 
 ```bash
 python DataScience-Task3-CarPricePrediction.py
 ```
 
+or open:
+
+```
+Car_Price_Prediction.ipynb
+```
+
+in Jupyter Notebook.
+
 ---
 
-## 👨‍💻 Author
+# ✅ Results
 
-Shaikh Danish Shaikh Umar Farooq
+* Successfully developed a regression-based car price prediction system.
+* Compared multiple machine learning models.
+* Generated performance metrics and visual analysis.
+* Saved the best trained model for future predictions.
 
-Oasis Infobyte Data Science Internship
+---
+
+# 👨‍💻 Author
+
+**Shaikh Danish Shaikh Umar Farooq**
+
+### Oasis Infobyte Data Science Internship
+
+**Task 3 - Car Price Prediction**
+
+---
