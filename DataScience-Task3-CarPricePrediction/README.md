@@ -204,6 +204,5 @@ in Jupyter Notebook.
 
 ### Oasis Infobyte Data Science Internship
 
-**Task 3 - Car Price Prediction**
 
 ---
